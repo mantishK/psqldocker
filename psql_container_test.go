@@ -34,9 +34,10 @@ func TestNewContainer(t *testing.T) {
 			password,
 			dbName,
 			psqldocker.WithContainerName(containerNameFromTest(t)),
+			psqldocker.WithRepository("postgis/postgis"),
 			psqldocker.WithDBPort("5432"),
 			psqldocker.WithPool(p),
-			psqldocker.WithImageTag("alpine"),
+			psqldocker.WithImageTag("13-master"),
 			psqldocker.WithPoolEndpoint(""),
 			psqldocker.WithSql(
 				"CREATE TABLE users(user_id UUID PRIMARY KEY);",

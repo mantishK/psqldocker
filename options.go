@@ -8,6 +8,7 @@ import (
 
 type options struct {
 	containerName,
+	repository,
 	imageTag,
 	poolEndpoint,
 	dbPort string
@@ -20,6 +21,7 @@ type options struct {
 func defaultOptions() options {
 	return options{
 		containerName:     "go-psqldocker",
+		repository:        "postgres",
 		imageTag:          "alpine",
 		poolEndpoint:      "",
 		dbPort:            "5432",
@@ -45,6 +47,18 @@ func (c containerNameOption) apply(opts *options) {
 // empty, a random one will be picked.
 func WithContainerName(name string) Option {
 	return containerNameOption(name)
+}
+
+type repositoryOption string
+
+func (r repositoryOption) apply(opts *options) {
+	opts.repository = string(r)
+}
+
+// WithContainerName configures the PSQL Container Name, if
+// empty, a random one will be picked.
+func WithRepository(name string) Option {
+	return repositoryOption(name)
 }
 
 type imageTagOption string
